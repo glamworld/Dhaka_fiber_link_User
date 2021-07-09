@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "426737478855",
+    "project_id": "dhaka-fiber-link",
+    "storage_bucket": "dhaka-fiber-link.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426737478855:android:6fa7bf4de5f9a33a54e2e2",
+        "android_client_info": {
+          "package_name": "com.glamworlditltd.dhaka_fiber_link_user_panel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426737478855-3bg0a2p4bvepqr24ldj2gej33ojejb9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.glamworlditltd.dhaka_fiber_link_user_panel",
+            "certificate_hash": "ce25e5027bab8ec05c99d82f88b85973477ce79e"
+          }
+        },
+        {
+          "client_id": "426737478855-gobq5aipp8kku37gae04gu26ug5be4eh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNpPZYZjQ2Sjqq474ZrVhYXUN3gWvwo0Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426737478855-gobq5aipp8kku37gae04gu26ug5be4eh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
