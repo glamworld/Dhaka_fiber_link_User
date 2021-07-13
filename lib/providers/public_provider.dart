@@ -71,7 +71,6 @@ class PublicProvider extends ChangeNotifier{
               password: element.doc['password'],
               billAmount: element.doc['billAmount'],
               activity: element.doc['activity'],
-              deductKey: element.doc['deductKey'],
               package: element.doc['package'],
               lastEntryMonth: element.doc['lastEntryMonth'],
               lastEntryYear: element.doc['lastEntryYear'],
@@ -158,7 +157,7 @@ class PublicProvider extends ChangeNotifier{
     }
   }
 
-  Future<bool> submitBill(String billingMonth,String billingYear, String billingNumber, String transactionId,String amount,String payBy)async{
+  Future<bool> submitBill(String billingMonth,String billingYear, String billingNumber, String transactionId,String amount,String payBy,String deductKey)async{
     try{
       String payDate = DateFormat("yyyy-MM-dd").format(
           DateTime.fromMillisecondsSinceEpoch(
@@ -173,6 +172,7 @@ class PublicProvider extends ChangeNotifier{
         'userPhone': _userList[0].phone,
         'userID': '$id',
         'payBy': payBy,
+        'deductKey': deductKey,
         'billingMonth': billingMonth,
         'billingYear': billingYear,
         'billingNumber': billingNumber,
@@ -202,6 +202,7 @@ class PublicProvider extends ChangeNotifier{
               userPhone: element.doc['userPhone'],
               userID: element.doc['userID'],
               payBy: element.doc['payBy'],
+              deductKey: element.doc['deductKey'],
               billingMonth: element.doc['billingMonth'],
               billingYear: element.doc['billingYear'],
               billingNumber: element.doc['billingNumber'],
@@ -219,6 +220,7 @@ class PublicProvider extends ChangeNotifier{
               userPhone: element.doc['userPhone'],
               userID: element.doc['userID'],
               payBy: element.doc['payBy'],
+              deductKey: element.doc['deductKey'],
               billingMonth: element.doc['billingMonth'],
               billingYear: element.doc['billingYear'],
               billingNumber: element.doc['billingNumber'],

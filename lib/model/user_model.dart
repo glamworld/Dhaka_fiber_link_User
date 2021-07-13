@@ -11,7 +11,6 @@ class UserModel {
   String lastEntryMonth;
   String monthYear;
   String activity;
-  String deductKey;
   String package;
 
   UserModel({this.id,
@@ -26,6 +25,5 @@ class UserModel {
     this.lastEntryMonth,
     this.monthYear,
     this.activity,
-    this.deductKey,
     this.package});
 }

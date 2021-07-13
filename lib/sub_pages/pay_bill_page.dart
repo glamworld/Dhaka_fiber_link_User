@@ -17,7 +17,9 @@ class PayBill extends StatefulWidget {
 
 class _PayBillState extends State<PayBill> {
   DateTime _date;
+  String _deductKey;
   String _payBy;
+  List<String> _deductList = ['Vat','AIT','Others'];
   List<String> _payList = ['BKash','Rocket','Nagad'];
   TextEditingController _dateController = TextEditingController();
   TextEditingController _monthController = TextEditingController();
@@ -26,6 +28,7 @@ class _PayBillState extends State<PayBill> {
   TextEditingController _transIdController = TextEditingController();
   TextEditingController _amountController = TextEditingController();
   TextEditingController _payByController = TextEditingController();
+  TextEditingController _deductController = TextEditingController();
 
   int _counter=0;
 
@@ -164,6 +167,42 @@ class _PayBillState extends State<PayBill> {
                     ),
                     Divider(height: 0,thickness: 1,color: CustomColors.liteGrey2),
                     SizedBox(height: size.width * .03),
+                    Container(
+                      height: 45,
+                      width: size.width,
+                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: size.height*.01),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          isDense: true,
+                          isExpanded: true,
+                          value:_deductKey,
+                          hint: Text('বিল পরিশোধের ধরন নির্বাচন করুন',style: TextStyle(
+                            //color: Colors.grey,
+                            fontFamily: 'OpenSans',
+                            fontSize: size.height*.022,)),
+                          items:_deductList.map((category){
+                            return DropdownMenuItem(
+                              child: Text(category, style: TextStyle(
+                                  color: Colors.grey[900],
+                                  fontSize: size.height * .022,fontFamily: 'OpenSans'
+                              ),
+                              ),
+                              value: category,
+                            );
+                          }).toList(),
+                          onChanged: (newVal){
+                            setState(() {
+                              _deductKey = newVal as String;
+                              _deductController.text=_deductKey;
+                            });
+                          },
+
+                          dropdownColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Divider(height: 0,thickness: 1,color: CustomColors.liteGrey2),
+                    SizedBox(height: size.width * .03),
 
                     _textField('মোবাইল নাম্বার (ইংরেজি)', size),
 
@@ -195,21 +234,22 @@ class _PayBillState extends State<PayBill> {
 
   void _formValidation(PublicProvider pProvider){
     if(_monthController.text.isNotEmpty && _yearController.text.isNotEmpty){
-        if (_phoneController.text.isNotEmpty && _payByController.text.isNotEmpty && _transIdController.text.isNotEmpty && _amountController.text.isNotEmpty) {
+        if (_phoneController.text.isNotEmpty && _payByController.text.isNotEmpty && _deductController.text.isNotEmpty && _transIdController.text.isNotEmpty && _amountController.text.isNotEmpty) {
           if(_phoneController.text.length==11){
             showLoadingDialog('অপেক্ষা করুন...');
-            pProvider.submitBill(_monthController.text,_yearController.text,_phoneController.text,_transIdController.text,_amountController.text,_payByController.text).then((success){
-              //if(success==false){
+            pProvider.submitBill(_monthController.text,_yearController.text,_phoneController.text,_transIdController.text,_amountController.text,_payByController.text,_deductController.text).then((success){
+              if(success==true){
                 closeLoadingDialog();
                 showSuccessMgs('বিল প্রদান সম্পন্ন হয়েছে');
                 _phoneController.clear();
                 _transIdController.clear();
                 _amountController.clear();
                 _payByController.clear();
-              // }else{
-              //   closeLoadingDialog();
-              //   showErrorMgs('বিল প্রদান অসম্পন্ন হয়েছে!');
-              // }
+                _deductController.clear();
+              }else{
+                closeLoadingDialog();
+                showErrorMgs('বিল প্রদান অসম্পন্ন হয়েছে!');
+              }
             },onError: (error){
               closeLoadingDialog();
               showErrorMgs(error.toString());
@@ -219,7 +259,7 @@ class _PayBillState extends State<PayBill> {
                 'মোবাইল নাম্বার অবশ্যই ১১ সংখ্যার হতে হবে');
         } else
           showInfo(
-              'মোবাইল নাম্বার, ট্রানজেকশন আইডি এবং বিলের পরিমান নিশ্চিত করুন');
+              'সকল তথ্য নিশ্চিত করুন');
     }else
       showInfo(
           'বিলের মাস নিশ্চিত করুন');
